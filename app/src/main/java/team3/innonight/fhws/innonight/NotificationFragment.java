@@ -92,14 +92,18 @@ public class NotificationFragment extends Fragment {
                 for (Notification n : adapter.getAll())
                 {
                     if (n.status == Notification.Status.Pending) {
-                        NotificationService.getInstance().changeNotificationStatus(n, Notification.Status.Done, "Ihre Antrag wurde ohne Beanstandung bearbeitet.");
+                        String des = "Ihre Antrag wurde ohne Beanstandung bearbeitet.";
+                        if (n.type == Notification.Type.Feedback)
+                            des = "Ihr Feedback wurde aufgenommen und an die entsprechende Stelle weitergeleitet";
+
+                        NotificationService.getInstance().changeNotificationStatus(n, Notification.Status.Done, des);
                         break;
 
                     }
 
                 }
             }
-        }, 8000, 8000);
+        }, 6000, 6000);
 
     }
 

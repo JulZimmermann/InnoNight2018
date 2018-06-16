@@ -11,15 +11,22 @@ public class Notification {
         Rejected
     }
 
+    public enum Type {
+        Feedback,
+        Form
+    }
+
     public String name;
     public String description;
     public Status status;
     public LocalDate dueDate;
+    public Type type = Type.Form;
 
     public Notification(String name, Status status) {
         this.name = name;
         this.status = status;
     }
+
 
     public Notification(String name, Status status, LocalDate dueDate) {
         this(name, status);
@@ -30,6 +37,11 @@ public class Notification {
         this.name = name;
         this.status = status;
         this.description = description;
+    }
+
+    public Notification(String name, Status status, String description, Type type) {
+        this(name, status, description);
+        this.type = type;
     }
 
     public Notification(String name, Status status, LocalDate dueDate, String description) {
