@@ -60,6 +60,7 @@ public class NotificationService {
     public void changeNotificationStatus(Notification n, Notification.Status nStatus, String description) {
         n.status = nStatus;
         n.description = description;
+        //showNotification(n.name, n.description);
         for(Consumer<NotificationChanged> c : this.changedCallbacks)
             c.accept(new NotificationChanged(n, NotificationChanged.Type.Changed));
     }
@@ -75,14 +76,14 @@ public class NotificationService {
 
     private void showNotification(String title, String content) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("default",
-                    "YOUR_CHANNEL_NAME",
+            NotificationChannel channel = new NotificationChannel(title,
+                    title,
                     NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription("YOUR_NOTIFICATION_CHANNEL_DISCRIPTION");
             mNotificationManager.createNotificationChannel(channel);
         }
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(c, "default")
-                .setSmallIcon(R.mipmap.ic_launcher) // notification icon
+                .setSmallIcon(R.drawable.ic_info_outline_black_24dp) // notification icon
                 .setContentTitle(title) // title for notification
                 .setContentText(content)// message for notification
                 //.setSound(alarmSound) // set alarm sound for notification

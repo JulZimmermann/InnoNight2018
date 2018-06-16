@@ -97,7 +97,7 @@ public class NotificationFragment extends Fragment {
             @Override
             public void run() {
                 if (adapter.getItemCount() > 0)
-                    NotificationService.getInstance().changeNotificationStatus(adapter.getAll().get(0), Notification.Status.Done, "Ihre Meldung wurde an die entsprechende Stelle weitergeleitet und wird zeitnah behoben");
+                    NotificationService.getInstance().changeNotificationStatus(adapter.getAll().get(0), Notification.Status.Done, "Ihre Antrag wurde ohne Beanstandung bearbeitet.");
             }
         }, 7000);
     }
