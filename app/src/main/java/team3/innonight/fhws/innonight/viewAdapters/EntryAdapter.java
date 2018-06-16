@@ -12,21 +12,27 @@ import java.util.function.Consumer;
 public class EntryAdapter<T extends ListElement> extends RecyclerView.Adapter<EntryHolder> {
     private List<T> entry;
     private int itemLayout;
-    private Consumer<View> clickCallback;
+    private Consumer<String> clickCallback;
 
-    public EntryAdapter(List<T> entry, int itemLayout, Consumer<View> clickCallback) {
+    public EntryAdapter(List<T> entry, int itemLayout, Consumer<String> clickCallback) {
         this.entry = entry;
         this.itemLayout = itemLayout;
         this.clickCallback = clickCallback;
     }
 
-
     @NonNull
     @Override
     public EntryHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View v = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
-        v.setOnClickListener(clickCallback::accept);
-        return new EntryHolder(v);
+
+        EntryHolder holder = new EntryHolder(v);
+
+        v.setOnClickListener(x -> {
+            int pos = holder.getAdapterPosition();
+            clickCallback.accept(entry.get(pos).getName());
+        });
+
+        return holder;
     }
 
     @Override

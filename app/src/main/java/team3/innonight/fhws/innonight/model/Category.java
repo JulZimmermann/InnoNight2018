@@ -2,11 +2,11 @@ package team3.innonight.fhws.innonight.model;
 
 import team3.innonight.fhws.innonight.viewAdapters.ListElement;
 
-public class SubCategory implements ListElement {
+public class Category implements ListElement {
     public String name;
     public int icon;
 
-    public SubCategory(String name, int icon) {
+    public Category(String name, int icon) {
         this.name = name;
         this.icon = icon;
     }
