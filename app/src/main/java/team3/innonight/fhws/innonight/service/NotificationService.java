@@ -42,7 +42,12 @@ public class NotificationService {
     }
 
     public void addNotification(Notification n) {
-        showNotification("Stadt Würzburg", n.name);
+        showNotification(n.name, n.description);
+        for(Consumer<NotificationChanged> c : this.changedCallbacks)
+            c.accept(new NotificationChanged(n, NotificationChanged.Type.Added));
+    }
+
+    public void addNotificationSilent(Notification n) {
         for(Consumer<NotificationChanged> c : this.changedCallbacks)
             c.accept(new NotificationChanged(n, NotificationChanged.Type.Added));
     }
