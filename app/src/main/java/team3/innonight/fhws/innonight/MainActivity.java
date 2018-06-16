@@ -23,6 +23,7 @@ import java.util.List;
 
 import team3.innonight.fhws.innonight.model.Category;
 import team3.innonight.fhws.innonight.service.CategoryService;
+import team3.innonight.fhws.innonight.model.User;
 import team3.innonight.fhws.innonight.viewAdapters.EntryAdapter;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -89,6 +90,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         RecyclerView recyclerView = findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+    }
+
+    User user = new User("piere.muster@example.de", R.drawable.ic_directions_car_black_24dp, "Pierre", "Muster", "Musterstraße 8", 909999, "Würzburg");
+
+    private void LoadUser() {
+        
     }
 
     private void onChoosedCategory(String category) {
