@@ -9,6 +9,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +22,10 @@ import java.util.List;
 
 import team3.innonight.fhws.innonight.model.Category;
 import team3.innonight.fhws.innonight.model.User;
+import team3.innonight.fhws.innonight.service.CategoryService;
 import team3.innonight.fhws.innonight.service.NotificationService;
+import team3.innonight.fhws.innonight.viewAdapters.EntryAdapter;
+import team3.innonight.fhws.innonight.viewAdapters.EntryHolder;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
