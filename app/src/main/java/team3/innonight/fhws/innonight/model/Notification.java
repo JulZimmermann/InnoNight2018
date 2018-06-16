@@ -1,7 +1,6 @@
 package team3.innonight.fhws.innonight.model;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 
 import team3.innonight.fhws.innonight.R;
 
@@ -12,15 +11,22 @@ public class Notification {
         Rejected
     }
 
+    public enum Type {
+        Feedback,
+        Form
+    }
+
     public String name;
     public String description;
     public Status status;
     public LocalDate dueDate;
+    public Type type = Type.Form;
 
     public Notification(String name, Status status) {
         this.name = name;
         this.status = status;
     }
+
 
     public Notification(String name, Status status, LocalDate dueDate) {
         this(name, status);
@@ -33,11 +39,15 @@ public class Notification {
         this.description = description;
     }
 
+    public Notification(String name, Status status, String description, Type type) {
+        this(name, status, description);
+        this.type = type;
+    }
+
     public Notification(String name, Status status, LocalDate dueDate, String description) {
         this(name, status, dueDate);
         this.description = description;
     }
-
 
     public int getStatusAsIcon() {
         switch (this.status) {

@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 
 import android.support.annotation.Nullable;
@@ -67,6 +69,9 @@ public class NotificationFragment extends Fragment {
 
 
         NotificationService.getInstance().registerNotificationChangedEvent((n) -> {
+            if (getActivity() == null)
+                return;
+
             getActivity().runOnUiThread(() -> {
                 if (n.type == NotificationChanged.Type.Added)
                     adapter.add(n.n);
@@ -87,14 +92,18 @@ public class NotificationFragment extends Fragment {
                 for (Notification n : adapter.getAll())
                 {
                     if (n.status == Notification.Status.Pending) {
-                        NotificationService.getInstance().changeNotificationStatus(n, Notification.Status.Done, "Ihre Antrag wurde ohne Beanstandung bearbeitet.");
+                        String des = "Ihre Antrag wurde ohne Beanstandung bearbeitet.";
+                        if (n.type == Notification.Type.Feedback)
+                            des = "Ihr Feedback wurde aufgenommen und an die entsprechende Stelle weitergeleitet";
+
+                        NotificationService.getInstance().changeNotificationStatus(n, Notification.Status.Done, des);
                         break;
 
                     }
 
                 }
             }
-        }, 8000, 8000);
+        }, 6000, 6000);
 
     }
 
