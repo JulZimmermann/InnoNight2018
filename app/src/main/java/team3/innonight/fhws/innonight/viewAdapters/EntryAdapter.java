@@ -41,6 +41,17 @@ public class EntryAdapter<T, H extends BindAbleHolder<T>> extends RecyclerView.A
         return holder;
     }
 
+
+    public void add(T item) {
+        this.entry.add(item);
+    }
+
+    public void remove(T item) {
+        int position = this.entry.indexOf(item);
+        this.entry.remove(position);
+        notifyItemRemoved(position);
+    }
+
     @Override
     public void onBindViewHolder(@NonNull H EntryHolder, int i) {
         final T item = entry.get(i);

@@ -10,6 +10,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Callable;
+import java.util.function.Consumer;
 
 import team3.innonight.fhws.innonight.R;
 import team3.innonight.fhws.innonight.model.Notification;
@@ -18,17 +20,31 @@ public class NotificationService {
     private NotificationManager mNotificationManager;
     private Context c;
 
-    public NotificationService(NotificationManager m, Context c) {
-        this.mNotificationManager = m;
-        this.c = c;
+    private static NotificationService instance;
 
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                showNotification("Hallo :D" , "Spamm");
-            }
-        }, 1000, 1000);
+    private NotificationService(){}
 
+    public static void setContext(NotificationManager m, Context c) {
+        if (NotificationService.instance == null) {
+            NotificationService.instance = new NotificationService();
+            NotificationService.instance.mNotificationManager = m;
+            NotificationService.instance.c = c;
+        }
+    }
+
+    public static NotificationService getInstance() {
+        return NotificationService.instance;
+    }
+
+    private List<Consumer<NotificationChanged>> changedCallbacks = new ArrayList<>();
+    public void registerNotificationChangedEvent(Consumer<NotificationChanged> c) {
+        this.changedCallbacks.add(c);
+    }
+
+    public void addNotification(Notification n) {
+        showNotification("Stadt Würzburg", n.name);
+        for(Consumer<NotificationChanged> c : this.changedCallbacks)
+            c.accept(new NotificationChanged(n, true));
     }
 
     public static List<Notification> getAllNotification() {
