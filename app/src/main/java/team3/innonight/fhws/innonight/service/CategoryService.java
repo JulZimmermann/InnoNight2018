@@ -30,7 +30,7 @@ public class CategoryService {
     }
 
     public static List<Category> getSubCategorys(String name) {
-        List<Category> ls = new ArrayList<Category>();
+        List<Category> ls = new ArrayList<>();
         switch(name) {
             case "Auto":
                 ls.add(new Category("Anmelden", R.drawable.ic_control_point_black_24dp));

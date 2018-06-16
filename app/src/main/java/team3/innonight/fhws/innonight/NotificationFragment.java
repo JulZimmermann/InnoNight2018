@@ -50,23 +50,17 @@ public class NotificationFragment extends Fragment {
                 new EntryAdapter<>(this.notifications, R.layout.notificationentry, (i) -> {
                     if (i.description != null)
                         Toast.makeText(context, i.description, Toast.LENGTH_LONG).show();
-                }, (v) -> {
-                    return new NotificationHolder(v);
-                });
+                }, NotificationHolder::new);
 
 
         NotificationService.getInstance().registerNotificationChangedEvent((n) -> {
-            getActivity().runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    if (n.type == NotificationChanged.Type.Added)
-                        adapter.add(n.n);
-                    else if (n.type == NotificationChanged.Type.Deleted)
-                        adapter.remove(n.n);
-                    else
-                        adapter.notifyDataSetChanged();
-                }
+            getActivity().runOnUiThread(() -> {
+                if (n.type == NotificationChanged.Type.Added)
+                    adapter.add(n.n);
+                else if (n.type == NotificationChanged.Type.Deleted)
+                    adapter.remove(n.n);
+                else
+                    adapter.notifyDataSetChanged();
             });
 
         });
