@@ -54,10 +54,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        loadUser();
+        Intent intent = getIntent();
+        String category = intent.getStringExtra("category");
+
+        if(category == null) {
+            this.entrys = CategoryService.getAllSuperCategorys();
+        } else {
+            this.entrys = CategoryService.getSubCategorys(category);
+        }
+
+
+        this.buildListView();
+        this.loadUser();
 
         NotificationService.setContext((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE), getApplicationContext());
 
+    }
+
+
+    private void buildListView() {
+        EntryAdapter<Category, EntryHolder> adapter =
+                new EntryAdapter<>(this.entrys, R.layout.mainviewentry, this::onChoosedCategory, (v) -> {
+                    return new EntryHolder(v);
+                });
+        RecyclerView recyclerView = findViewById(R.id.rv);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
     }
 
     User user = new User("pierre.muster@example.de", R.drawable.ic_user_male_alt, "Pierre", "Muster", "Musterstraße 8", "909999", "Würzburg");

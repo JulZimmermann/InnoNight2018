@@ -12,6 +12,8 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import team3.innonight.fhws.innonight.model.Notification;
 import team3.innonight.fhws.innonight.service.NotificationService;
@@ -31,7 +33,12 @@ public class Notifications extends AppCompatActivity {
         this.notifications = NotificationService.getInstance().getAllNotification();
         this.buildListView();
 
-
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                NotificationService.getInstance().addNotification(new Notification("Hallo tool:D ", Notification.Status.Done, ""));
+            }
+        }, 1000);
     }
 
     private List<Notification> notifications = new ArrayList<>();
@@ -44,10 +51,17 @@ public class Notifications extends AppCompatActivity {
                 });
 
         NotificationService.getInstance().registerNotificationChangedEvent((n) -> {
-            if (n.added)
-                adapter.add(n.n);
-            else
-                adapter.remove(n.n);
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    if (n.added)
+                        adapter.add(n.n);
+                    else
+                        adapter.remove(n.n);
+                }
+            });
+
         });
         RecyclerView recyclerView = findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
