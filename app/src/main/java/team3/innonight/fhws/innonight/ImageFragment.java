@@ -54,7 +54,7 @@ public class ImageFragment extends Fragment {
         NotificationService.getInstance().addNotification(
                 new Notification(
                         String.format("Feedback %s", edFeedback.getText()),
-                        Notification.Status.Pending, "Ihr Antrag wird bearbeitet"
+                        Notification.Status.Pending, "Ihr Antrag wird bearbeitet", Notification.Type.Feedback
                 ));
 
         Fragment fragment = new CategoryFragment();
