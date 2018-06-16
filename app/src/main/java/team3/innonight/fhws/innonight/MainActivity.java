@@ -1,5 +1,6 @@
 package team3.innonight.fhws.innonight;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 
 import team3.innonight.fhws.innonight.model.MainEntry;
+import team3.innonight.fhws.innonight.model.User;
 import team3.innonight.fhws.innonight.viewAdapters.EntryAdapter;
 
 public class MainActivity extends AppCompatActivity
@@ -38,11 +40,9 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         this.entrys.add(new MainEntry("Haloo :D", R.drawable.ic_directions_car_black_24dp));
-
         this.entrys.add(new MainEntry("Haloo2 :D", R.drawable.ic_directions_car_black_24dp));
 
         this.buildListView();
-
     }
 
     ArrayList<MainEntry> entrys = new ArrayList<>();
@@ -57,6 +57,12 @@ public class MainActivity extends AppCompatActivity
         recyclerView = (RecyclerView)findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+    }
+
+    User user = new User("piere.muster@example.de", R.drawable.ic_directions_car_black_24dp, "Pierre", "Muster", "Musterstraße 8", 909999, "Würzburg");
+
+    private void LoadUser() {
+
     }
 
     @Override
@@ -100,7 +106,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
+            Intent intent = new Intent(this, UserActitvity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
