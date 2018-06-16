@@ -1,5 +1,6 @@
 package team3.innonight.fhws.innonight;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,17 +25,17 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         this.entrys.add(new SuperCategory("Haloo :D", R.drawable.ic_directions_car_black_24dp));
@@ -51,17 +52,22 @@ public class MainActivity extends AppCompatActivity
     EntryAdapter<SuperCategory> adapter;
 
     private void buildListView() {
-        adapter = new EntryAdapter<SuperCategory>(this.entrys, R.layout.mainviewentry, (view) -> {
-
-        });
-        recyclerView = (RecyclerView)findViewById(R.id.rv);
+        adapter = new EntryAdapter<>(this.entrys, R.layout.mainviewentry, this::onChoosedCategory);
+        recyclerView = findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
 
+    private void onChoosedCategory(String category) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("category", category);
+
+        startActivity(intent);
+    }
+
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
