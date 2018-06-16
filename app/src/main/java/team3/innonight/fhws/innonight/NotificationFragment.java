@@ -88,8 +88,8 @@ public class NotificationFragment extends Fragment {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                NotificationService.getInstance().addNotification(new Notification("Hallo tool:D ", Notification.Status.Pending, "",
-                        "Ihre Meldung wurde an die entsprechende Stelle weitergeleitet und wird zeitnah behoben"));
+                NotificationService.getInstance().addNotification(new Notification("Ihr Antrag wird bearbeitet", Notification.Status.Pending, "",
+                        "Wir werden ihnen in kürze das Ergebniss mitteilen"));
             }
         }, 1000);
 
@@ -97,7 +97,7 @@ public class NotificationFragment extends Fragment {
             @Override
             public void run() {
                 if (adapter.getItemCount() > 0)
-                    NotificationService.getInstance().changeNotificationStatus(adapter.getAll().get(0), Notification.Status.Done, "");
+                    NotificationService.getInstance().changeNotificationStatus(adapter.getAll().get(0), Notification.Status.Done, "Ihre Antrag wurde ohne Beanstandung bearbeitet.");
             }
         }, 7000);
     }
