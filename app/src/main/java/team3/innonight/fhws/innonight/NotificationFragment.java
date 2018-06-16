@@ -1,7 +1,9 @@
 package team3.innonight.fhws.innonight;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
@@ -52,6 +54,24 @@ public class NotificationFragment extends Fragment {
                         Toast.makeText(context, i.description, Toast.LENGTH_LONG).show();
                 }, (v) -> {
                     return new NotificationHolder(v);
+                }, (i) -> {
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    NotificationService.getInstance().removeNotification(i);
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage("Wollen sie die gewählte Benachrichtigung Löschen?").setPositiveButton("Ja", dialogClickListener)
+                            .setNegativeButton("Nein", dialogClickListener).show();
                 });
 
 
@@ -85,8 +105,8 @@ public class NotificationFragment extends Fragment {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-
-                NotificationService.getInstance().changeNotificationStatus(adapter.getAll().get(0), Notification.Status.Done);
+                if (adapter.getItemCount() > 0)
+                    NotificationService.getInstance().changeNotificationStatus(adapter.getAll().get(0), Notification.Status.Done);
             }
         }, 7000);
     }

@@ -47,8 +47,14 @@ public class NotificationService {
             c.accept(new NotificationChanged(n, NotificationChanged.Type.Added));
     }
 
-    public void changeNotificationStatus(Notification n, Notification.Status nStatus) {
+    public void removeNotification(Notification n) {
+        for(Consumer<NotificationChanged> c : this.changedCallbacks)
+            c.accept(new NotificationChanged(n, NotificationChanged.Type.Deleted));
+    }
+
+    public void changeNotificationStatus(Notification n, Notification.Status nStatus, String description) {
         n.status = nStatus;
+        n.description = description;
         for(Consumer<NotificationChanged> c : this.changedCallbacks)
             c.accept(new NotificationChanged(n, NotificationChanged.Type.Changed));
     }

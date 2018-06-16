@@ -14,6 +14,7 @@ public class EntryAdapter<T, H extends BindAbleHolder<T>> extends RecyclerView.A
     private List<T> entry;
     private int itemLayout;
     private Consumer<T> clickCallback;
+    private Consumer<T> longClickCallback;
 
     private Function<View, H> createHolder;
 
@@ -22,6 +23,12 @@ public class EntryAdapter<T, H extends BindAbleHolder<T>> extends RecyclerView.A
         this.itemLayout = itemLayout;
         this.clickCallback = clickCallback;
         this.createHolder = createHolder;
+    }
+
+
+    public EntryAdapter(List<T> entry, int itemLayout, Consumer<T> clickCallback, Function<View, H> createHolder, Consumer<T> longClickCallback) {
+        this(entry,itemLayout,clickCallback,createHolder);
+        this.longClickCallback = longClickCallback;
     }
 
 
@@ -36,6 +43,12 @@ public class EntryAdapter<T, H extends BindAbleHolder<T>> extends RecyclerView.A
         v.setOnClickListener(x -> {
             int pos = holder.getAdapterPosition();
             clickCallback.accept(entry.get(pos));
+        });
+
+        v.setOnLongClickListener(x -> {
+            int pos = holder.getAdapterPosition();
+            longClickCallback.accept(entry.get(pos));
+            return true;
         });
 
         return holder;
