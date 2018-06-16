@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        loadUser();
     }
 
     User user = new User("pierre.muster@example.de", R.drawable.ic_user_male_alt, "Pierre", "Muster", "Musterstraße 8", "909999", "Würzburg");
