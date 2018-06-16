@@ -30,6 +30,14 @@ public class NotificationService {
             NotificationService.instance.mNotificationManager = m;
             NotificationService.instance.c = c;
         }
+
+
+    }
+
+    private List<Notification> notifications = new ArrayList<>();
+
+    public List<Notification> getExistingNotifications() {
+        return NotificationService.instance.notifications;
     }
 
     public static NotificationService getInstance() {
@@ -43,6 +51,7 @@ public class NotificationService {
 
     public void addNotification(Notification n) {
         showNotification(n.name, n.description);
+        this.notifications.add(n);
         for(Consumer<NotificationChanged> c : this.changedCallbacks)
             c.accept(new NotificationChanged(n, NotificationChanged.Type.Added));
     }
@@ -53,6 +62,7 @@ public class NotificationService {
     }
 
     public void removeNotification(Notification n) {
+        this.notifications.remove(n);
         for(Consumer<NotificationChanged> c : this.changedCallbacks)
             c.accept(new NotificationChanged(n, NotificationChanged.Type.Deleted));
     }

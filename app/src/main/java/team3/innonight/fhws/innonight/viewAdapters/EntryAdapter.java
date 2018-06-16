@@ -56,13 +56,13 @@ public class EntryAdapter<T, H extends BindAbleHolder<T>> extends RecyclerView.A
 
 
     public void add(T item) {
-        this.entry.add(item);
+        //this.entry.add(item);
         notifyItemInserted(this.entry.size());
     }
 
     public void remove(T item) {
         int position = this.entry.indexOf(item);
-        this.entry.remove(position);
+        //this.entry.remove(position);
         notifyItemRemoved(position);
     }
 

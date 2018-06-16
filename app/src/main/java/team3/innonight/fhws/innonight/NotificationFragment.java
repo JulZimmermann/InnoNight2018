@@ -38,18 +38,14 @@ public class NotificationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.notifications = NotificationService.getInstance().getAllNotification();
         this.buildListView(view,view.getContext());
-
-
-
     }
 
-    private List<Notification> notifications = new ArrayList<>();
+
 
     private void buildListView(@NonNull View view, Context context) {
         EntryAdapter<Notification, NotificationHolder> adapter =
-                new EntryAdapter<>(this.notifications, R.layout.notificationentry, (i) -> {
+                new EntryAdapter<>(NotificationService.getInstance().getExistingNotifications(), R.layout.notificationentry, (i) -> {
                     if (i.description != null)
                         Toast.makeText(context, i.description, Toast.LENGTH_LONG).show();
                 }, NotificationHolder::new, (i) -> {
@@ -93,13 +89,21 @@ public class NotificationFragment extends Fragment {
             }
         }, 1000);
 
-        new Timer().schedule(new TimerTask() {
+        new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (adapter.getItemCount() > 0)
-                    NotificationService.getInstance().changeNotificationStatus(adapter.getAll().get(0), Notification.Status.Done, "Ihre Antrag wurde ohne Beanstandung bearbeitet.");
+                for (Notification n : adapter.getAll())
+                {
+                    if (n.status == Notification.Status.Pending) {
+                        NotificationService.getInstance().changeNotificationStatus(n, Notification.Status.Done, "Ihre Antrag wurde ohne Beanstandung bearbeitet.");
+                        break;
+
+                    }
+
+                }
             }
-        }, 7000);
+        }, 8000, 8000);
+
     }
 
 }
