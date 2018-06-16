@@ -12,35 +12,30 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import team3.innonight.fhws.innonight.model.Category;
 import team3.innonight.fhws.innonight.model.Notification;
 import team3.innonight.fhws.innonight.viewAdapters.EntryAdapter;
-import team3.innonight.fhws.innonight.viewAdapters.EntryHolder;
 import team3.innonight.fhws.innonight.viewAdapters.NotificationHolder;
 
-public class NotificationList extends AppCompatActivity {
+public class Notifications extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notification_list);
+        setContentView(R.layout.activity_notifications);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        this.buildListView();
+
+
     }
 
     private List<Notification> notifications = new ArrayList<>();
     private void buildListView() {
         EntryAdapter<Notification, NotificationHolder> adapter =
-                new EntryAdapter<>(this.notifications, R.layout.mainviewentry, (i) -> {
+                new EntryAdapter<>(this.notifications, R.layout.notificationentry, (i) -> {
 
                 }, (v) -> {
                     return new NotificationHolder(v);

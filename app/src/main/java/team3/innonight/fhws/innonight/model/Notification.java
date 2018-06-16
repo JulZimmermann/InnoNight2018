@@ -13,7 +13,13 @@ public class Notification {
 
     public String name;
     public Status status;
-    public Calendar dueDate;
+    public String dueDate;
+
+    public Notification(String name, Status status, String dueDate) {
+        this.name = name;
+        this.status = status;
+        this.dueDate = dueDate;
+    }
 
     public int getStatusAsIcon() {
         return R.drawable.ic_control_point_black_24dp;
