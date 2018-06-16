@@ -2,16 +2,16 @@ package team3.innonight.fhws.innonight.service;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import team3.innonight.fhws.innonight.MainActivity;
 import team3.innonight.fhws.innonight.R;
+import team3.innonight.fhws.innonight.model.Notification;
 
 public class NotificationService {
     private NotificationManager mNotificationManager;
@@ -28,6 +28,10 @@ public class NotificationService {
             }
         }, 1000, 1000);
 
+    }
+
+    public List<Notification> getAllNotification() {
+        return new ArrayList<Notification>();
     }
 
     private void showNotification(String title, String content) {

@@ -25,6 +25,7 @@ import team3.innonight.fhws.innonight.model.Category;
 import team3.innonight.fhws.innonight.service.CategoryService;
 import team3.innonight.fhws.innonight.model.User;
 import team3.innonight.fhws.innonight.viewAdapters.EntryAdapter;
+import team3.innonight.fhws.innonight.viewAdapters.EntryHolder;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -86,7 +87,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void buildListView() {
-        EntryAdapter<Category> adapter = new EntryAdapter<>(this.entrys, R.layout.mainviewentry, this::onChoosedCategory);
+        EntryAdapter<Category, EntryHolder> adapter =
+                new EntryAdapter<>(this.entrys, R.layout.mainviewentry, this::onChoosedCategory, (v) -> {
+                    return new EntryHolder(v);
+                });
         RecyclerView recyclerView = findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -98,9 +102,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         
     }
 
-    private void onChoosedCategory(String category) {
+    private void onChoosedCategory(Category category) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("category", category);
+        intent.putExtra("category", category.name);
 
         startActivity(intent);
     }

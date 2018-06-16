@@ -8,39 +8,44 @@ import android.view.ViewGroup;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
-public class EntryAdapter<T extends ListElement> extends RecyclerView.Adapter<EntryHolder> {
+public class EntryAdapter<T, H extends BindAbleHolder<T>> extends RecyclerView.Adapter<H> {
     private List<T> entry;
     private int itemLayout;
-    private Consumer<String> clickCallback;
+    private Consumer<T> clickCallback;
 
-    public EntryAdapter(List<T> entry, int itemLayout, Consumer<String> clickCallback) {
+    private Function<View, H> createHolder;
+
+    public EntryAdapter(List<T> entry, int itemLayout, Consumer<T> clickCallback, Function<View, H> createHolder) {
         this.entry = entry;
         this.itemLayout = itemLayout;
         this.clickCallback = clickCallback;
+        this.createHolder = createHolder;
     }
+
 
     @NonNull
     @Override
-    public EntryHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public H onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View v = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
 
-        EntryHolder holder = new EntryHolder(v);
+        H holder = this.createHolder.apply(v);
+
 
         v.setOnClickListener(x -> {
             int pos = holder.getAdapterPosition();
-            clickCallback.accept(entry.get(pos).getName());
+            clickCallback.accept(entry.get(pos));
         });
 
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EntryHolder EntryHolder, int i) {
+    public void onBindViewHolder(@NonNull H EntryHolder, int i) {
         final T item = entry.get(i);
         EntryHolder.itemView.setTag(item);
-        EntryHolder.text.setText(item.getName());
-        EntryHolder.image.setImageResource(item.getIcon());
+        EntryHolder.bind(item);
 
     }
 

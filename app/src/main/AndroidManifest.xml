@@ -19,7 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:label="@string/app_name" android:name=".UserActitvity"/>
+        <activity
+            android:name=".UserActitvity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".NotificationList"
+            android:label="@string/title_activity_notification_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
