@@ -12,23 +12,24 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import team3.innonight.fhws.innonight.model.Category;
 import team3.innonight.fhws.innonight.model.Notification;
-import team3.innonight.fhws.innonight.service.NotificationService;
 import team3.innonight.fhws.innonight.viewAdapters.EntryAdapter;
-import team3.innonight.fhws.innonight.viewAdapters.EntryHolder;
 import team3.innonight.fhws.innonight.viewAdapters.NotificationHolder;
 
-public class NotificationList extends AppCompatActivity {
+public class Notifications extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notification_list);
+        setContentView(R.layout.activity_notifications);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.notifications = NotificationService.getAllNotification();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        this.buildListView();
+
+
     }
 
     private List<Notification> notifications = new ArrayList<>();

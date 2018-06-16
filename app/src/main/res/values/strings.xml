@@ -13,4 +13,5 @@
     <string name="feedbacktype3">Suggestion</string>
     <string name="feedbacktype4">Bug</string>
     <string name="title_activity_notification_list">NotificationList</string>
+    <string name="title_activity_notifications">Notifications</string>
 </resources>

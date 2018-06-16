@@ -143,7 +143,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_events) {
-
+            Intent intent = new Intent(this, Notifications.class);
+            startActivity(intent);
 
         } else if(id == R.id.nav_account) {
             Intent intent = new Intent(this, UserActitvity.class);
