@@ -22,13 +22,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import team3.innonight.fhws.innonight.model.SuperCategory;
+import team3.innonight.fhws.innonight.model.Category;
+import team3.innonight.fhws.innonight.service.CategoryService;
 import team3.innonight.fhws.innonight.model.User;
 import team3.innonight.fhws.innonight.viewAdapters.EntryAdapter;
+import team3.innonight.fhws.innonight.viewAdapters.EntryHolder;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private List<Category> entrys = new ArrayList<>();
 
     NavigationView navigationView;
 
@@ -49,9 +53,15 @@ public class MainActivity extends AppCompatActivity
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        this.entrys.add(new SuperCategory("Haloo :D", R.drawable.ic_directions_car_black_24dp));
+        Intent intent = getIntent();
+        String category = intent.getStringExtra("category");
 
-        this.entrys.add(new SuperCategory("Haloo2 :D", R.drawable.ic_directions_car_black_24dp));
+        if(category == null) {
+            this.entrys = CategoryService.getAllSuperCategorys();
+        } else {
+            this.entrys = CategoryService.getSubCategorys(category);
+        }
+
 
         this.buildListView();
         this.loadUser();
@@ -82,15 +92,12 @@ public class MainActivity extends AppCompatActivity
         mNotificationManager.notify(0, mBuilder.build());
     }
 
-
-    ArrayList<SuperCategory> entrys = new ArrayList<>();
-
-    RecyclerView recyclerView;
-    EntryAdapter<SuperCategory> adapter;
-
     private void buildListView() {
-        adapter = new EntryAdapter<>(this.entrys, R.layout.mainviewentry, this::onChoosedCategory);
-        recyclerView = findViewById(R.id.rv);
+        EntryAdapter<Category, EntryHolder> adapter =
+                new EntryAdapter<>(this.entrys, R.layout.mainviewentry, this::onChoosedCategory, (v) -> {
+                    return new EntryHolder(v);
+                });
+        RecyclerView recyclerView = findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
@@ -109,9 +116,9 @@ public class MainActivity extends AppCompatActivity
         navEmail.setText(user.getEmail());
     }
 
-    private void onChoosedCategory(String category) {
+    private void onChoosedCategory(Category category) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("category", category);
+        intent.putExtra("category", category.name);
 
         startActivity(intent);
     }
