@@ -1,6 +1,7 @@
 package team3.innonight.fhws.innonight;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,20 +14,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import team3.innonight.fhws.innonight.model.Notification;
+import team3.innonight.fhws.innonight.service.NotificationService;
 import team3.innonight.fhws.innonight.viewAdapters.EntryAdapter;
 import team3.innonight.fhws.innonight.viewAdapters.NotificationHolder;
 
 public class Notifications extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        this.notifications = NotificationService.getAllNotification();
         this.buildListView();
 
 

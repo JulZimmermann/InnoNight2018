@@ -26,8 +26,7 @@
         <activity
             android:name=".Notifications"
             android:label="@string/title_activity_notifications"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

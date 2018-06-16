@@ -34,7 +34,8 @@ public class NotificationService {
     public static List<Notification> getAllNotification() {
 
         List<Notification> ls = new ArrayList<Notification>();
-        ls.add(new Notification("Perso fertig", Notification.Status.Done, "22.06.2018"));
+        ls.add(new Notification("Personalausweiß kann abgeholt werden fertig", Notification.Status.Done, "22.06.2018"));
+        ls.add(new Notification("Schlagloch gemeldet", Notification.Status.Pending, "-"));
         return ls;
     }
 

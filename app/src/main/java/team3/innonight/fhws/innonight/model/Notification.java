@@ -22,7 +22,17 @@ public class Notification {
     }
 
     public int getStatusAsIcon() {
-        return R.drawable.ic_control_point_black_24dp;
+        switch (this.status) {
+            case Pending:
+                return  R.drawable.ic_autorenew_black_24dp;
+            case Done:
+                return R.drawable.ic_beenhere_black_24dp;
+            case Rejected:
+                return R.drawable.ic_do_not_disturb_alt_black_24dp;
+        }
+
+
+        return R.drawable.ic_launcher_background;
     }
 
 }

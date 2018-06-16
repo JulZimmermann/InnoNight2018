@@ -18,7 +18,7 @@ public class NotificationHolder extends BindAbleHolder<Notification>  {
     public NotificationHolder(@NonNull View itemView) {
         super(itemView);
         mainText = (TextView) itemView.findViewById(R.id.notification_main);
-        dueDate = (TextView) itemView.findViewById(R.id.notification_dueDate);
+        //dueDate = (TextView) itemView.findViewById(R.id.notification_dueDate);
         image = (ImageView) itemView.findViewById(R.id.notification_status_icon);
     }
 
@@ -26,7 +26,7 @@ public class NotificationHolder extends BindAbleHolder<Notification>  {
     public void bind(Notification item) {
         this.mainText.setText(item.name);
         this.image.setImageResource(item.getStatusAsIcon());
-        this.dueDate.setText(item.dueDate.toString());
+        //this.dueDate.setText(item.dueDate.toString());
     }
 
 }
