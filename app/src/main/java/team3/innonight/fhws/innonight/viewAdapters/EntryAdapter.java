@@ -53,6 +53,10 @@ public class EntryAdapter<T, H extends BindAbleHolder<T>> extends RecyclerView.A
         notifyItemRemoved(position);
     }
 
+    public List<T> getAll() {
+        return this.entry;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull H EntryHolder, int i) {
         final T item = entry.get(i);

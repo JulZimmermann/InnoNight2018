@@ -12,6 +12,7 @@ public class Notification {
     }
 
     public String name;
+    public String description;
     public Status status;
     public String dueDate;
 
@@ -20,6 +21,11 @@ public class Notification {
         this.status = status;
         this.dueDate = dueDate;
     }
+    public Notification(String name, Status status, String dueDate, String description) {
+        this(name, status, dueDate);
+        this.description = description;
+    }
+
 
     public int getStatusAsIcon() {
         switch (this.status) {

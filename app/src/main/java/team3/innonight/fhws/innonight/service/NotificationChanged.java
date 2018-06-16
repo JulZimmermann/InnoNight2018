@@ -4,10 +4,16 @@ import team3.innonight.fhws.innonight.model.Notification;
 
 public class NotificationChanged {
     public Notification n;
-    public boolean added;
+    public Type type;
 
-    public NotificationChanged(Notification n, boolean added) {
+    public enum Type {
+        Added,
+        Changed,
+        Deleted
+    }
+
+    public NotificationChanged(Notification n, Type type) {
         this.n = n;
-        this.added = added;
+        this.type = type;
     }
 }

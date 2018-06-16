@@ -44,16 +44,23 @@ public class NotificationService {
     public void addNotification(Notification n) {
         showNotification("Stadt Würzburg", n.name);
         for(Consumer<NotificationChanged> c : this.changedCallbacks)
-            c.accept(new NotificationChanged(n, true));
+            c.accept(new NotificationChanged(n, NotificationChanged.Type.Added));
+    }
+
+    public void changeNotificationStatus(Notification n, Notification.Status nStatus) {
+        n.status = nStatus;
+        for(Consumer<NotificationChanged> c : this.changedCallbacks)
+            c.accept(new NotificationChanged(n, NotificationChanged.Type.Changed));
     }
 
     public static List<Notification> getAllNotification() {
 
         List<Notification> ls = new ArrayList<Notification>();
-        ls.add(new Notification("Personalausweiß kann abgeholt werden fertig", Notification.Status.Done, "22.06.2018"));
-        ls.add(new Notification("Schlagloch gemeldet", Notification.Status.Pending, "-"));
+        //ls.add(new Notification("Personalausweiß kann abgeholt werden fertig", Notification.Status.Done, "22.06.2018"));
+        //ls.add(new Notification("Schlagloch gemeldet", Notification.Status.Pending, "-"));
         return ls;
     }
+
 
     private void showNotification(String title, String content) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
