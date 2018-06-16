@@ -1,34 +1,18 @@
 package team3.innonight.fhws.innonight;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import team3.innonight.fhws.innonight.model.Category;
-import team3.innonight.fhws.innonight.service.CategoryService;
 import team3.innonight.fhws.innonight.model.User;
-import team3.innonight.fhws.innonight.viewAdapters.EntryAdapter;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-    private List<Category> entrys = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,63 +30,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        Intent intent = getIntent();
-        String category = intent.getStringExtra("category");
-
-        if(category == null) {
-            this.entrys = CategoryService.getAllSuperCategorys();
-        } else {
-            this.entrys = CategoryService.getSubCategorys(category);
-        }
-
-
-        this.buildListView();
-
-        this.showNotification("Hallo", "Baum");
-
-    }
-
-    void showNotification(String title, String content) {
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("default",
-                    "YOUR_CHANNEL_NAME",
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("YOUR_NOTIFICATION_CHANNEL_DISCRIPTION");
-            mNotificationManager.createNotificationChannel(channel);
-        }
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
-                .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                .setContentTitle(title) // title for notification
-                .setContentText(content)// message for notification
-                //.setSound(alarmSound) // set alarm sound for notification
-                .setAutoCancel(true); // clear notification after click
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(pi);
-        mNotificationManager.notify(0, mBuilder.build());
-    }
-
-    private void buildListView() {
-        EntryAdapter<Category> adapter = new EntryAdapter<>(this.entrys, R.layout.mainviewentry, this::onChoosedCategory);
-        RecyclerView recyclerView = findViewById(R.id.rv);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
     }
 
     User user = new User("piere.muster@example.de", R.drawable.ic_directions_car_black_24dp, "Pierre", "Muster", "Musterstraße 8", 909999, "Würzburg");
 
     private void LoadUser() {
-        
-    }
 
-    private void onChoosedCategory(String category) {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("category", category);
-
-        startActivity(intent);
     }
 
     @Override

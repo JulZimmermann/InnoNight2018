@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:label="@string/app_name" android:name=".UserActitvity"/>
+        <activity android:label="Auto anmelden" android:name=".AutoAnmeldenActivity"/>
     </application>
 
 </manifest>
