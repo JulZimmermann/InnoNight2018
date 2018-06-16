@@ -61,13 +61,18 @@ public class AutoAnmeldenUebersichtFragment extends Fragment {
         final Auto fAuto = auto;
         absenden.setOnClickListener(v -> onAbsenden(v, fAuto));
 
+        benutzer.clearComposingText();
+        kennzeichen.clearComposingText();
+        schluesselnumer.clearComposingText();
+
+
     }
 
     private void onAbsenden(View view, Auto auto) {
         NotificationService.getInstance().addNotification(
                 new Notification(
                         String.format("Anmeldung %s", auto.getKennzeichen()),
-                        Notification.Status.Pending
+                        Notification.Status.Pending, "Ihr Antrag wird bearbeitet"
                         ));
 
 

@@ -1,9 +1,12 @@
 package team3.innonight.fhws.innonight;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -79,14 +82,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if(id == R.id.nav_start) {
+            FragmentManager fragmentManager = getFragmentManager();
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment, new CategoryFragment())
+                    .addToBackStack(null)
+                    .commit();
+        } else if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_events) {
             NotificationFragment fragment = new NotificationFragment();

@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 
 import android.support.annotation.Nullable;
@@ -67,6 +69,9 @@ public class NotificationFragment extends Fragment {
 
 
         NotificationService.getInstance().registerNotificationChangedEvent((n) -> {
+            if (getActivity() == null)
+                return;
+
             getActivity().runOnUiThread(() -> {
                 if (n.type == NotificationChanged.Type.Added)
                     adapter.add(n.n);
@@ -80,16 +85,6 @@ public class NotificationFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
-
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                NotificationService.getInstance().addNotification(new Notification(
-                        "Ihr Antrag wird bearbeitet",
-                        Notification.Status.Pending,
-                        "Wir werden ihnen in kürze das Ergebniss mitteilen"));
-            }
-        }, 1000);
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
