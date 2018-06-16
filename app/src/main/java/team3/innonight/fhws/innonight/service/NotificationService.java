@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.v4.app.NotificationCompat;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -30,8 +31,11 @@ public class NotificationService {
 
     }
 
-    public List<Notification> getAllNotification() {
-        return new ArrayList<Notification>();
+    public static List<Notification> getAllNotification() {
+
+        List<Notification> ls = new ArrayList<Notification>();
+        ls.add(new Notification("Perso fertig", Notification.Status.Done, "22.06.2018"));
+        return ls;
     }
 
     private void showNotification(String title, String content) {
