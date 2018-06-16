@@ -1,21 +1,15 @@
 package team3.innonight.fhws.innonight;
 
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,11 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import team3.innonight.fhws.innonight.model.Category;
-import team3.innonight.fhws.innonight.service.CategoryService;
 import team3.innonight.fhws.innonight.model.User;
 import team3.innonight.fhws.innonight.service.NotificationService;
-import team3.innonight.fhws.innonight.viewAdapters.EntryAdapter;
-import team3.innonight.fhws.innonight.viewAdapters.EntryHolder;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -101,8 +92,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_events) {
-            Intent intent = new Intent(this, Notifications.class);
-            startActivity(intent);
+            NotificationFragment fragment = new NotificationFragment();
+
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment, fragment)
+                    .addToBackStack(null)
+                    .commit();
 
         } else if(id == R.id.nav_account) {
             Bundle bundle = new Bundle();
@@ -117,11 +114,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .replace(R.id.main_fragment, fragment)
                     .addToBackStack(null)
                     .commit();
-            /*
-            Intent intent = new Intent(this, UserFragment.class);
-            intent.putExtra("User", user);
-            startActivity(intent);
-            */
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
