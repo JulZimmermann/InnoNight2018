@@ -76,17 +76,13 @@ public class NotificationFragment extends Fragment {
 
 
         NotificationService.getInstance().registerNotificationChangedEvent((n) -> {
-            getActivity().runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    if (n.type == NotificationChanged.Type.Added)
-                        adapter.add(n.n);
-                    else if (n.type == NotificationChanged.Type.Deleted)
-                        adapter.remove(n.n);
-                    else
-                        adapter.notifyDataSetChanged();
-                }
+            getActivity().runOnUiThread(() -> {
+                if (n.type == NotificationChanged.Type.Added)
+                    adapter.add(n.n);
+                else if (n.type == NotificationChanged.Type.Deleted)
+                    adapter.remove(n.n);
+                else
+                    adapter.notifyDataSetChanged();
             });
 
         });
