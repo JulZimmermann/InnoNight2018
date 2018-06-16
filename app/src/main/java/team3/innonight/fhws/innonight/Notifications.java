@@ -27,14 +27,28 @@ public class Notifications extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        this.notifications = NotificationService.getAllNotification();
+
+        this.notifications = NotificationService.getInstance().getAllNotification();
         this.buildListView();
+
+
     }
 
     private List<Notification> notifications = new ArrayList<>();
     private void buildListView() {
         EntryAdapter<Notification, NotificationHolder> adapter =
-                new EntryAdapter<>(this.notifications, R.layout.notificationentry, i -> {}, NotificationHolder::new);
+                new EntryAdapter<>(this.notifications, R.layout.notificationentry, (i) -> {
+
+                }, (v) -> {
+                    return new NotificationHolder(v);
+                });
+
+        NotificationService.getInstance().registerNotificationChangedEvent((n) -> {
+            if (n.added)
+                adapter.add(n.n);
+            else
+                adapter.remove(n.n);
+        });
         RecyclerView recyclerView = findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);

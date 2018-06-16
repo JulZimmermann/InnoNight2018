@@ -1,21 +1,39 @@
 package team3.innonight.fhws.innonight;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import team3.innonight.fhws.innonight.model.Category;
+import team3.innonight.fhws.innonight.service.CategoryService;
 import team3.innonight.fhws.innonight.model.User;
+import team3.innonight.fhws.innonight.service.NotificationService;
+import team3.innonight.fhws.innonight.viewAdapters.EntryAdapter;
+import team3.innonight.fhws.innonight.viewAdapters.EntryHolder;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private List<Category> entrys = new ArrayList<>();
 
     NavigationView navigationView;
 
@@ -37,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         loadUser();
+
+        NotificationService.setContext((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE), getApplicationContext());
+
     }
 
     User user = new User("pierre.muster@example.de", R.drawable.ic_user_male_alt, "Pierre", "Muster", "Musterstraße 8", "909999", "Würzburg");
@@ -51,6 +72,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navImage.setImageResource(user.getIcon());
         navUsername.setText(user.getFirstname() + " " + user.getSurname());
         navEmail.setText(user.getEmail());
+    }
+
+    private void onChoosedCategory(Category category) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("category", category.name);
+
+        startActivity(intent);
     }
 
     @Override
