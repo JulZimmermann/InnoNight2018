@@ -39,8 +39,6 @@ public class UserFragment extends Fragment {
         etPostcode = view.findViewById(R.id.evPostcode);
         etCity = view.findViewById(R.id.evCity);
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         setUserToView();
     }
 

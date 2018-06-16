@@ -56,7 +56,7 @@ public class CategoryFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString("category", category.name);
 
-        CategoryFragment fragment = new CategoryFragment();
+        Fragment fragment = CategoryService.getFragmentForCategory(category.name);
         fragment.setArguments(bundle);
 
         FragmentManager fragmentManager = getFragmentManager();
