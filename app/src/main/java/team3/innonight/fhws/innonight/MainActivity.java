@@ -96,7 +96,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_camera) {
-            // Handle the camera action
+            ImageFragment fragment = new ImageFragment();
+
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment, fragment)
+                    .addToBackStack(null)
+                    .commit();
+
         } else if (id == R.id.nav_events) {
             NotificationFragment fragment = new NotificationFragment();
 

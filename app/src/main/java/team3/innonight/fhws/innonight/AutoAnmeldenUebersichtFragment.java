@@ -79,7 +79,5 @@ public class AutoAnmeldenUebersichtFragment extends Fragment {
         fragmentManager.beginTransaction()
                 .replace(R.id.main_fragment, fragment)
                 .commit();
-
     }
-
 }
