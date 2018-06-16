@@ -1,6 +1,8 @@
 package team3.innonight.fhws.innonight.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String email;
     private int icon;
     private String firstname;
@@ -8,6 +10,8 @@ public class User {
     private String street;
     private String postcode;
     private String city;
+
+    public User() {}
 
     public User(String email, int icon, String firstname, String surname, String street, String postcode, String city) {
         this.email = email;
