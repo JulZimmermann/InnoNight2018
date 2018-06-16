@@ -18,6 +18,7 @@ import java.util.List;
 import team3.innonight.fhws.innonight.model.Category;
 import team3.innonight.fhws.innonight.service.CategoryService;
 import team3.innonight.fhws.innonight.viewAdapters.EntryAdapter;
+import team3.innonight.fhws.innonight.viewAdapters.EntryHolder;
 
 public class CategoryFragment extends Fragment {
 
@@ -41,7 +42,7 @@ public class CategoryFragment extends Fragment {
             entrys = CategoryService.getAllSuperCategorys();
         }
 
-        EntryAdapter<Category> adapter = new EntryAdapter<>(entrys, R.layout.mainviewentry, this::onChoosedCategory);
+        EntryAdapter<Category, EntryHolder> adapter = new EntryAdapter<>(entrys, R.layout.mainviewentry, this::onChoosedCategory, EntryHolder::new);
         RecyclerView recyclerView = view.findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
@@ -53,9 +54,9 @@ public class CategoryFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_category, container, false);
     }
 
-    private void onChoosedCategory(String category) {
+    private void onChoosedCategory(Category category) {
         Bundle bundle = new Bundle();
-        bundle.putString("category", category);
+        bundle.putString("category", category.name);
 
         CategoryFragment fragment = new CategoryFragment();
         fragment.setArguments(bundle);

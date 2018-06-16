@@ -1,8 +1,6 @@
 package team3.innonight.fhws.innonight.model;
 
-import team3.innonight.fhws.innonight.viewAdapters.ListElement;
-
-public class Category implements ListElement {
+public class Category {
     public String name;
     public int icon;
 
@@ -11,12 +9,10 @@ public class Category implements ListElement {
         this.icon = icon;
     }
 
-    @Override
     public String getName() {
         return this.name;
     }
 
-    @Override
     public int getIcon() {
         return this.icon;
     }

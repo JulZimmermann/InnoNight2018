@@ -7,8 +7,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import team3.innonight.fhws.innonight.R;
+import team3.innonight.fhws.innonight.model.Category;
 
-public class EntryHolder extends RecyclerView.ViewHolder {
+public class EntryHolder extends BindAbleHolder<Category> {
 
     public TextView text;
     public ImageView image;
@@ -17,6 +18,12 @@ public class EntryHolder extends RecyclerView.ViewHolder {
         super(itemView);
         text = (TextView) itemView.findViewById(R.id.category_name);
         image = (ImageView) itemView.findViewById(R.id.category_icon);
+    }
+
+    @Override
+    public void bind(Category item) {
+        this.text.setText(item.getName());
+        this.image.setImageResource(item.getIcon());
     }
 
 }
