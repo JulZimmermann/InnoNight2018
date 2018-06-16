@@ -67,17 +67,17 @@ public class AutoAnmeldenUebersichtFragment extends Fragment {
         NotificationService.getInstance().addNotification(
                 new Notification(
                         String.format("Anmeldung %s", auto.getKennzeichen()),
-                        Notification.Status.Pending,
-                        "1234"
+                        Notification.Status.Pending
                         ));
 
 
         Fragment fragment = new CategoryFragment();
         FragmentManager fragmentManager = getFragmentManager();
 
+        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
         fragmentManager.beginTransaction()
                 .replace(R.id.main_fragment, fragment)
-                .addToBackStack(null)
                 .commit();
 
     }

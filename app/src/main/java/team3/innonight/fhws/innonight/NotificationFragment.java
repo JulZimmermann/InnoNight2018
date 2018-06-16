@@ -88,7 +88,9 @@ public class NotificationFragment extends Fragment {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                NotificationService.getInstance().addNotification(new Notification("Ihr Antrag wird bearbeitet", Notification.Status.Pending, "",
+                NotificationService.getInstance().addNotification(new Notification(
+                        "Ihr Antrag wird bearbeitet",
+                        Notification.Status.Pending,
                         "Wir werden ihnen in kürze das Ergebniss mitteilen"));
             }
         }, 1000);

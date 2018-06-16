@@ -1,5 +1,6 @@
 package team3.innonight.fhws.innonight.model;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 
 import team3.innonight.fhws.innonight.R;
@@ -14,14 +15,25 @@ public class Notification {
     public String name;
     public String description;
     public Status status;
-    public String dueDate;
+    public LocalDate dueDate;
 
-    public Notification(String name, Status status, String dueDate) {
+    public Notification(String name, Status status) {
         this.name = name;
         this.status = status;
+    }
+
+    public Notification(String name, Status status, LocalDate dueDate) {
+        this(name, status);
         this.dueDate = dueDate;
     }
-    public Notification(String name, Status status, String dueDate, String description) {
+
+    public Notification(String name, Status status, String description) {
+        this.name = name;
+        this.status = status;
+        this.description = description;
+    }
+
+    public Notification(String name, Status status, LocalDate dueDate, String description) {
         this(name, status, dueDate);
         this.description = description;
     }
