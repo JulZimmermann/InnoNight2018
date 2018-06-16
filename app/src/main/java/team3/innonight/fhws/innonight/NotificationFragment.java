@@ -52,20 +52,15 @@ public class NotificationFragment extends Fragment {
                 new EntryAdapter<>(this.notifications, R.layout.notificationentry, (i) -> {
                     if (i.description != null)
                         Toast.makeText(context, i.description, Toast.LENGTH_LONG).show();
-                }, (v) -> {
-                    return new NotificationHolder(v);
-                }, (i) -> {
-                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            switch (which){
-                                case DialogInterface.BUTTON_POSITIVE:
-                                    NotificationService.getInstance().removeNotification(i);
-                                    break;
+                }, NotificationHolder::new, (i) -> {
+                    DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                NotificationService.getInstance().removeNotification(i);
+                                break;
 
-                                case DialogInterface.BUTTON_NEGATIVE:
-                                    break;
-                            }
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                break;
                         }
                     };
 
