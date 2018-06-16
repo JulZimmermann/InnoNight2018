@@ -1,7 +1,5 @@
 package team3.innonight.fhws.innonight.model;
 
-import team3.innonight.fhws.innonight.viewAdapters.ListElement;
-
 public class Category {
     public String name;
     public int icon;
