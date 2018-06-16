@@ -1,7 +1,6 @@
 package team3.innonight.fhws.innonight.model;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 
 import team3.innonight.fhws.innonight.R;
 
@@ -37,7 +36,6 @@ public class Notification {
         this(name, status, dueDate);
         this.description = description;
     }
-
 
     public int getStatusAsIcon() {
         switch (this.status) {
