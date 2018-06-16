@@ -24,9 +24,15 @@ public class EntryAdapter<T extends ListElement> extends RecyclerView.Adapter<En
     @Override
     public EntryHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View v = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
-        final T item = entry.get(i);
-        v.setOnClickListener(x -> clickCallback.accept(item.getName()));
-        return new EntryHolder(v);
+
+        EntryHolder holder = new EntryHolder(v);
+
+        v.setOnClickListener(x -> {
+            int pos = holder.getAdapterPosition();
+            clickCallback.accept(entry.get(pos).getName());
+        });
+
+        return holder;
     }
 
     @Override
