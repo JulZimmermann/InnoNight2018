@@ -23,10 +23,13 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 
 import team3.innonight.fhws.innonight.model.SuperCategory;
+import team3.innonight.fhws.innonight.service.NotificationService;
 import team3.innonight.fhws.innonight.viewAdapters.EntryAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private NotificationService notificationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,32 +54,10 @@ public class MainActivity extends AppCompatActivity
 
         this.buildListView();
 
-        this.showNotification("Hallo", "Baum");
+        this.notificationService = new
+                NotificationService((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE), getApplicationContext());
 
     }
-
-    void showNotification(String title, String content) {
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("default",
-                    "YOUR_CHANNEL_NAME",
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("YOUR_NOTIFICATION_CHANNEL_DISCRIPTION");
-            mNotificationManager.createNotificationChannel(channel);
-        }
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
-                .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                .setContentTitle(title) // title for notification
-                .setContentText(content)// message for notification
-                //.setSound(alarmSound) // set alarm sound for notification
-                .setAutoCancel(true); // clear notification after click
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(pi);
-        mNotificationManager.notify(0, mBuilder.build());
-    }
-
 
     ArrayList<SuperCategory> entrys = new ArrayList<>();
 
