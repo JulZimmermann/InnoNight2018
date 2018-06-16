@@ -81,16 +81,6 @@ public class NotificationFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                NotificationService.getInstance().addNotification(new Notification(
-                        "Ihr Antrag wird bearbeitet",
-                        Notification.Status.Pending,
-                        "Wir werden ihnen in kürze das Ergebniss mitteilen"));
-            }
-        }, 1000);
-
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {

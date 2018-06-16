@@ -67,7 +67,7 @@ public class AutoAnmeldenUebersichtFragment extends Fragment {
         NotificationService.getInstance().addNotification(
                 new Notification(
                         String.format("Anmeldung %s", auto.getKennzeichen()),
-                        Notification.Status.Pending
+                        Notification.Status.Pending, "Ihr Antrag wird bearbeitet"
                         ));
 
 

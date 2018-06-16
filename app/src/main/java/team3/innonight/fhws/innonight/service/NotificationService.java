@@ -50,7 +50,7 @@ public class NotificationService {
     }
 
     public void addNotification(Notification n) {
-        showNotification(n.name, n.description);
+        showNotification(n.name, n.description,n);
         this.notifications.add(n);
         for(Consumer<NotificationChanged> c : this.changedCallbacks)
             c.accept(new NotificationChanged(n, NotificationChanged.Type.Added));
@@ -63,14 +63,17 @@ public class NotificationService {
 
     public void removeNotification(Notification n) {
         this.notifications.remove(n);
+        mNotificationManager.cancel(n.name.hashCode() + n.description.hashCode());
         for(Consumer<NotificationChanged> c : this.changedCallbacks)
             c.accept(new NotificationChanged(n, NotificationChanged.Type.Deleted));
     }
 
     public void changeNotificationStatus(Notification n, Notification.Status nStatus, String description) {
+        mNotificationManager.cancel(n.name.hashCode() + n.description.hashCode());
         n.status = nStatus;
         n.description = description;
-        //showNotification(n.name, n.description);
+
+        showNotification(n.name, n.description, n);
         for(Consumer<NotificationChanged> c : this.changedCallbacks)
             c.accept(new NotificationChanged(n, NotificationChanged.Type.Changed));
     }
@@ -84,7 +87,7 @@ public class NotificationService {
     }
 
 
-    private void showNotification(String title, String content) {
+    private void showNotification(String title, String content, Notification n) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(title,
                     title,
@@ -101,6 +104,6 @@ public class NotificationService {
         //Intent intent = new Intent(c, MainActivity.class);
         //PendingIntent pi = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         //mBuilder.setContentIntent(pi);
-        mNotificationManager.notify(0, mBuilder.build());
+        mNotificationManager.notify(n.name.hashCode() + n.description.hashCode(), mBuilder.build());
     }
 }
