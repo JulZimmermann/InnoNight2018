@@ -1,6 +1,5 @@
 package team3.innonight.fhws.innonight;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,14 +9,12 @@ import team3.innonight.fhws.innonight.model.User;
 
 public class UserActitvity  extends AppCompatActivity {
 
-    private User user;
-
-    EditText etEmail;
-    EditText etFirstname;
-    EditText etSurname;
-    EditText etStreet;
-    EditText etPostcode;
-    EditText etCity;
+    private EditText etEmail;
+    private EditText etFirstname;
+    private EditText etSurname;
+    private EditText etStreet;
+    private EditText etPostcode;
+    private EditText etCity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,12 +22,12 @@ public class UserActitvity  extends AppCompatActivity {
         setContentView(R.layout.activity_user);
 
         // get view elements
-        etEmail = (EditText) findViewById(R.id.evEmail);
-        etFirstname = (EditText) findViewById(R.id.evFirstname);
-        etSurname = (EditText) findViewById(R.id.evSecondname);
-        etStreet = (EditText) findViewById(R.id.evStreet);
-        etPostcode = (EditText) findViewById(R.id.evPostcode);
-        etCity = (EditText) findViewById(R.id.evCity);
+        etEmail = findViewById(R.id.evEmail);
+        etFirstname = findViewById(R.id.evFirstname);
+        etSurname = findViewById(R.id.evSecondname);
+        etStreet = findViewById(R.id.evStreet);
+        etPostcode = findViewById(R.id.evPostcode);
+        etCity = findViewById(R.id.evCity);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -40,7 +37,7 @@ public class UserActitvity  extends AppCompatActivity {
     private void setUserToView() {
 
         // get user object from main
-        user = (User) getIntent().getSerializableExtra("User");
+        User user = (User) getIntent().getSerializableExtra("User");
         if (user == null) return;
 
         // set attributes
