@@ -22,14 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".UserFragment"
-            android:label="@string/app_name"
-            android:parentActivityName=".MainActivity"/>
-        <activity
-            android:name=".NotificationFragment"
-            android:label="@string/title_activity_notifications"
-            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>
