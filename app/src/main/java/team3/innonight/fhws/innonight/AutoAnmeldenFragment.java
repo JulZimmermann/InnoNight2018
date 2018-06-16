@@ -53,7 +53,7 @@ public class AutoAnmeldenFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putSerializable("auto", auto);
 
-        CategoryFragment fragment = new CategoryFragment();
+        AutoAnmeldenUebersichtFragment fragment = new AutoAnmeldenUebersichtFragment();
         fragment.setArguments(bundle);
 
         FragmentManager fragmentManager = getFragmentManager();

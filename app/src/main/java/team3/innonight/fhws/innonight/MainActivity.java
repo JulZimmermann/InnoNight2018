@@ -24,6 +24,7 @@ import team3.innonight.fhws.innonight.model.Category;
 import team3.innonight.fhws.innonight.model.User;
 import team3.innonight.fhws.innonight.service.CategoryService;
 import team3.innonight.fhws.innonight.service.NotificationService;
+import team3.innonight.fhws.innonight.service.UserService;
 import team3.innonight.fhws.innonight.viewAdapters.EntryAdapter;
 import team3.innonight.fhws.innonight.viewAdapters.EntryHolder;
 
@@ -54,9 +55,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    User user = new User("pierre.muster@example.de", R.drawable.ic_user_male_alt, "Pierre", "Muster", "Musterstraße 8", "909999", "Würzburg");
-
     private void loadUser() {
+        User user = UserService.getUser();
+
         View headerView = navigationView.getHeaderView(0);
 
         ImageView navImage = (ImageView) headerView.findViewById(R.id.navImage);
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if(id == R.id.nav_account) {
             Bundle bundle = new Bundle();
-            bundle.putSerializable("User", user);
+            bundle.putSerializable("User", UserService.getUser());
 
             UserFragment fragment = new UserFragment();
             fragment.setArguments(bundle);
