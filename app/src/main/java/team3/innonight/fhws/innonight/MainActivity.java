@@ -14,7 +14,7 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
-import team3.innonight.fhws.innonight.model.MainEntry;
+import team3.innonight.fhws.innonight.model.SuperCategory;
 import team3.innonight.fhws.innonight.viewAdapters.EntryAdapter;
 
 public class MainActivity extends AppCompatActivity
@@ -37,21 +37,21 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        this.entrys.add(new MainEntry("Haloo :D", R.drawable.ic_directions_car_black_24dp));
+        this.entrys.add(new SuperCategory("Haloo :D", R.drawable.ic_directions_car_black_24dp));
 
-        this.entrys.add(new MainEntry("Haloo2 :D", R.drawable.ic_directions_car_black_24dp));
+        this.entrys.add(new SuperCategory("Haloo2 :D", R.drawable.ic_directions_car_black_24dp));
 
         this.buildListView();
 
     }
 
-    ArrayList<MainEntry> entrys = new ArrayList<>();
+    ArrayList<SuperCategory> entrys = new ArrayList<>();
 
     RecyclerView recyclerView;
-    EntryAdapter<MainEntry> adapter;
+    EntryAdapter<SuperCategory> adapter;
 
     private void buildListView() {
-        adapter = new EntryAdapter<MainEntry>(this.entrys, R.layout.mainviewentry, (view) -> {
+        adapter = new EntryAdapter<SuperCategory>(this.entrys, R.layout.mainviewentry, (view) -> {
 
         });
         recyclerView = (RecyclerView)findViewById(R.id.rv);

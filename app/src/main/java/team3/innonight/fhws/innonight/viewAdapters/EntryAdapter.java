@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import java.util.List;
 import java.util.function.Consumer;
 
-import team3.innonight.fhws.innonight.model.MainEntry;
-
 public class EntryAdapter<T extends ListElement> extends RecyclerView.Adapter<EntryHolder> {
     private List<T> entry;
     private int itemLayout;
