@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 
 import team3.innonight.fhws.innonight.model.MainEntry;
-import team3.innonight.fhws.innonight.model.MainEntryAdapter;
+import team3.innonight.fhws.innonight.viewAdapters.EntryAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity
     ArrayList<MainEntry> entrys = new ArrayList<>();
 
     RecyclerView recyclerView;
-    MainEntryAdapter adapter;
+    EntryAdapter<MainEntry> adapter;
 
     private void buildListView() {
-        adapter = new MainEntryAdapter(this.entrys, R.layout.mainviewentry, (view) -> {
+        adapter = new EntryAdapter<MainEntry>(this.entrys, R.layout.mainviewentry, (view) -> {
 
         });
         recyclerView = (RecyclerView)findViewById(R.id.rv);
