@@ -77,9 +77,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
 
         } else if(id == R.id.nav_account) {
-            Intent intent = new Intent(this, UserActitvity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("User", user);
+
+            UserFragment fragment = new UserFragment();
+            fragment.setArguments(bundle);
+
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment, fragment)
+                    .addToBackStack(null)
+                    .commit();
+            /*
+            Intent intent = new Intent(this, UserFragment.class);
             intent.putExtra("User", user);
             startActivity(intent);
+            */
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UserActitvity"
+            android:name=".UserFragment"
             android:label="@string/app_name"
             android:parentActivityName=".MainActivity"/>
         <activity

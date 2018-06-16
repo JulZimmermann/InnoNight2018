@@ -12,6 +12,6 @@
      android:name="team3.innonight.fhws.innonight.CategoryFragment"
      android:layout_width="fill_parent"
      android:layout_height="fill_parent"
-     android:id="@+id/category_fragment" />
+     android:id="@+id/main_fragment" />
 
 </android.support.constraint.ConstraintLayout>
