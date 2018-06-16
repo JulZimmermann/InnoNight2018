@@ -102,7 +102,7 @@ public class NotificationFragment extends Fragment {
             @Override
             public void run() {
                 if (adapter.getItemCount() > 0)
-                    NotificationService.getInstance().changeNotificationStatus(adapter.getAll().get(0), Notification.Status.Done);
+                    NotificationService.getInstance().changeNotificationStatus(adapter.getAll().get(0), Notification.Status.Done, "");
             }
         }, 7000);
     }
